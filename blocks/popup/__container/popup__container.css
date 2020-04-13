@@ -1,0 +1,19 @@
+.popup__container {
+    width: 430px;
+    height: 330px;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+    .popup__container {
+        width: 230px;
+    }
+}

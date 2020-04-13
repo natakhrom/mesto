@@ -1,0 +1,9 @@
+.element__text {
+    font-family: Inter;
+    font-style: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.8rem;
+    margin-top: 25px;
+    margin-left: 21px;
+}
