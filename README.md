@@ -5,6 +5,5 @@
 ## Технологии
 HTML, CSS, JavaScript.
 
-
-# Ссылка на работу:
+# Ссылка на работу на gh-pages
 https://natakhrom.github.io/mesto/
