@@ -1,9 +1,10 @@
 .profile__text {
-    height: 18px;
-    font-family: Inter;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-style: normal;
     font-weight: normal;
-    font-size: 1.1rem;
-    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    margin-top: 16px;
     grid-column: 2;
     grid-row: 2;
     align-self: start;
@@ -11,8 +12,12 @@
 
 @media screen and (max-width: 550px) {
     .profile__text {
+        font-size: 1.4rem;
+        line-height: 1.7rem;
         grid-column: span 2;
         grid-row: 3;
         margin-bottom: 36px;
+        margin-top: 0;
+
     }
 }

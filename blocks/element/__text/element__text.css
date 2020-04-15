@@ -1,9 +1,18 @@
 .element__text {
-    font-family: Inter;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-style: normal;
     font-size: 1.5rem;
-    font-weight: bold;
-    line-height: 1.8rem;
+    font-weight: 900;
+    line-height: 1.8125rem;
     margin-top: 25px;
     margin-left: 21px;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+@media screen and (max-width: 570px) {
+    .element__text {
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+    }
 }

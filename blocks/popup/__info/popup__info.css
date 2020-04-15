@@ -1,18 +1,27 @@
+@import url(./_name/popup__info_name.css);
+
 .popup__info {
-        border-width: 0;
         width: 358px;
+        height: 28px;
+        border-width: 0 0 1px;
+        padding: 0;
+        vertical-align: text-top;
+}
+
+.popup__info:first-of-type {
+    margin-bottom: 29px;
 }
 
 .popup__info::placeholder {
-        font-family: Inter;
+        font-family: Inter, Arial, Helvetica, sans-serif;
         font-style: normal;
         font-size: 0.8rem;
         font-weight: normal;
         line-height: 1rem;
     }
-    
+
 .popup__info::-webkit-input-placeholder {
-        font-family: Inter;
+        font-family: Inter, Arial, Helvetica, sans-serif;
         font-style: normal;
         font-size: 0.8rem;
         font-weight: normal;
@@ -20,7 +29,7 @@
     }
     
 .popup__info::-moz-placeholder {
-        font-family: Inter;
+        font-family: Inter, Arial, Helvetica, sans-serif;
         font-style: normal;
         font-size: 0.8rem;
         font-weight: normal;
@@ -28,7 +37,7 @@
     }
     
 .popup__info::-ms-input-placeholder {
-        font-family: Inter;
+        font-family: Inter, Arial, Helvetica, sans-serif;
         font-style: normal;
         font-size: 0.8rem;
         font-weight: normal;
