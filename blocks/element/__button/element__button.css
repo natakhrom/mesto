@@ -6,7 +6,8 @@
     background-repeat: no-repeat;
     background-position: bottom;
     border-width: 0;
-    position: absolute;
-    bottom: 29px;
-    right: 22px;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    margin-right: 15px;
 }

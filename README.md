@@ -6,4 +6,4 @@
 HTML, CSS, JavaScript.
 
 # Ссылка на работу на gh-pages
-https://natakhrom.github.io/mesto/
+https://natakhrom.github.io/mesto/index.html

@@ -7,67 +7,64 @@
         <link rel="stylesheet" href="index/index.css">
     </head>
     <body class="page">
-        <section class="popup">
-            <form class="popup__container">
-                <h2 class="popup__heading">Редактировать профиль</h2>
-                <fieldset class="popup__input">
-                    <input type="text" name="firstname" placeholder="Жак-Ив Кусто" class="popup__info popup__info_name"> 
-                </fieldset>
-                <fieldset class="popup__input">
-                    <input type="text" name="about" placeholder="Исследователь океана" class="popup__info popup__info_job">
-                </fieldset>
-                <button type="submit" class="popup__button">Сохранить</button>
-                <button type="reset" class="popup__close-icon"></button>
-            </form>
-        </section>
-
         <header class="header">
             <img src="./images/logo.svg" alt="Mesto Russia" class="logo">
-            <div class="header__line"></div>
         </header>
         
         <main class="content">
             <section class="profile">
                 <div class="profile__info">
-                    <img src="images/Avatar.png" alt="photo Kusto" class="profile__avatar">
-                    <p class="profile__name">Жак-Ив Кусто</p>
+                    <img src="images/avatar.jpg" alt="фото Жака-Ива Кусто" class="profile__avatar">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <p class="profile__text">Исследователь океана</p>
-                    <button class="profile__button-edit"></button>
+                    <button class="profile__edit-button" type="button"></button> <!--кнопка редактирования-->
                 </div>
-                <button class="profile__button-add"></button>
+                <button class="profile__add-button" type="button"></button> <!--кнопка добавления фото-->
             </section>
 
             <section class="elements">
                 <div class="element">
-                    <img src="images/Buryatiya.jpg" alt="Buryatiya" class="element__image">
-                    <p class="element__text">Бурятия</p>
-                    <button class="element__button"></button>
+                    <img src="images/buryatiya.jpg" alt="Бурятия" class="element__image">
+                    <h2 class="element__text">Бурятия</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
                 <div class="element">
-                    <img src="images/Vyborg.jpg" alt="Vyborg" class="element__image">
-                    <p class="element__text">Выборг</p>
-                    <button class="element__button"></button>
+                    <img src="images/vyborg.jpg" alt="Выборг" class="element__image">
+                    <h2 class="element__text">Выборг</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
                 <div class="element">
-                    <img src="images/Karelia.jpg" alt="Karelia" class="element__image">
-                    <p class="element__text">Карелия</p>
-                    <button class="element__button"></button>
+                    <img src="images/karelia.jpg" alt="Карелия" class="element__image">
+                    <h2 class="element__text">Карелия</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
                 <div class="element">
-                    <img src="images/Krasnoyarsk_Russia.jpg" alt="Russia" class="element__image">
-                    <p class="element__text">Красноярск</p>
-                    <button class="element__button"></button>
+                    <img src="images/krasnoyarsk.jpg" alt="Красноярск" class="element__image">
+                    <h2 class="element__text">Красноярск</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
                 <div class="element">
-                    <img src="images/Zelenograd.jpg" alt="Zelenograd" class="element__image">
-                    <p class="element__text">Зеленоград</p>
-                    <button class="element__button"></button>
+                    <img src="images/zelenograd.jpg" alt="Зеленоград" class="element__image">
+                    <h2 class="element__text">Зеленоград</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
                 <div class="element">
-                    <img src="images/Smolensk.jpg" alt="Smolensk" class="element__image">
-                    <p class="element__text">Смоленск</p>
-                    <button class="element__button"></button>
+                    <img src="images/smolensk.jpg" alt="Смоленск" class="element__image">
+                    <h2 class="element__text">Смоленск</h2>
+                    <button class="element__button" type="button" aria-label="кнопка Нравится"></button> 
                 </div>
+            </section>
+
+            <section class="popup popup_type_closed"> 
+                <form class="popup__container" name="popupform" method="GET" action="#"> <!--форма попапа-->
+                    <h2 class="popup__heading">Редактировать профиль</h2>
+                    <fieldset class="popup__input"> <!--поля ввода-->
+                        <input type="text" name="firstname" value="Жак-Ив Кусто" placeholder="Имя" class="popup__info popup__info_name" required> 
+                        <input type="text" name="about" value="Исследователь океана" placeholder="О себе" class="popup__info popup__info_job" required>
+                    </fieldset>
+                    <button type="submit" class="popup__button">Сохранить</button> 
+                    <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon"></button> <!--кнопка закрытия окна без изменений - "X"-->
+                </form>
             </section>
         </main>
         <footer class="footer">

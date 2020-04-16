@@ -1,9 +1,9 @@
-@import url(./__line/header__line.css);
-
 .header {
     max-width: 882px;
-    padding: 45px 45px 0;
+    padding-top: 45px;
     margin: auto;
+    border-bottom: 1px solid #545454;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 960px) {
