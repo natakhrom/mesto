@@ -1,6 +1,5 @@
 .popup__container {
     width: 430px;
-    min-height: 330px;
     margin: auto;
     position: fixed;
     top: 50%;
