@@ -1,5 +1,3 @@
-@import url(./_name/popup__info_name.css);
-
 .popup__info {
         width: 358px;
         height: 28px;
@@ -18,6 +16,7 @@
         font-size: 0.8rem;
         font-weight: normal;
         line-height: 1rem;
+        color: #C4C4C4;
     }
 
 .popup__info::-webkit-input-placeholder {
@@ -26,6 +25,7 @@
         font-size: 0.8rem;
         font-weight: normal;
         line-height: 1rem;
+        color: #C4C4C4;
     }
     
 .popup__info::-moz-placeholder {
@@ -34,6 +34,7 @@
         font-size: 0.8rem;
         font-weight: normal;
         line-height: 1rem;
+        color: #C4C4C4;
     }
     
 .popup__info::-ms-input-placeholder {
@@ -42,10 +43,17 @@
         font-size: 0.8rem;
         font-weight: normal;
         line-height: 1rem;
+        color: #C4C4C4;
     }
     
     @media screen and (max-width: 550px) {
         .popup__info {
-            width: 80%;
+            width: 200px;
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+        }
+
+        .popup__info:first-of-type {
+            margin-bottom: 20px;
         }
     }
