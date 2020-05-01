@@ -1,0 +1,6 @@
+.popup__form-image {
+    margin: 0;
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+}

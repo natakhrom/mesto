@@ -1,6 +1,7 @@
 @import url(./__image/element__image.css);
 @import url(./__text/element__text.css);
-@import url(./__button/element__button.css);
+@import url(./__button/element__button-like.css);
+@import url(./__button/element__button-trash.css);
 
 .element {
     background-color: white;
