@@ -16,7 +16,6 @@
 
 .popup__button:hover {
     background-color: rgba(0, 0, 0, 0.8);
-    transition: 2s ease-out;
 }
 
 @media screen and (max-width: 550px) {

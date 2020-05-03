@@ -9,7 +9,5 @@
     border-radius: 10px;
     overflow: hidden;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    grid-template-rows: repeat(auto-fit, 1fr);
     align-items: center;
 }

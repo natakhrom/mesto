@@ -5,6 +5,7 @@
 @import url(./__close/popup__close-icon.css);
 @import url(./__button/popup__button.css);
 @import url(./__form/popup__form-image.css);
+@import url(./__close/popup__close-image.css);
 @import url(./__big/popup__big-image.css);
 @import url(./__text/popup__text-image.css);
 
@@ -17,15 +18,12 @@
     left: 0;
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     visibility: hidden;
     opacity: 0;
-    -webkit-transition: visibility 0.8s, opacity 0.8s linear;
-    -moz-transition: visibility 0.8s, opacity 0.8s linear;
-    -ms-transition: visibility 0.8s, opacity 0.8s linear;
-    -o-ransition: visibility 0.8s, opacity 0.8s linear;
-    transition: visibility 0.8s, opacity 0.8s linear;
+    transition: visibility 0.5s linear 0s, opacity 0.5s linear 0s;
 }
 

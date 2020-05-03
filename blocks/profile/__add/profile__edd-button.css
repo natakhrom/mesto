@@ -8,7 +8,6 @@
     background-repeat: no-repeat;
     border-radius: 2px;
     cursor: pointer;
-    transition: opacity 0.2s;
 }
 
 .profile__add-button:hover {

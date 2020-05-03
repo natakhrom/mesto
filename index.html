@@ -22,16 +22,16 @@
                 <button class="profile__add-button" type="button"></button> 
             </section>
 
-            <section class="elements">
+            <ul class="elements">
                 <template id="card">
-                    <div class="element">
+                    <li class="element">
                         <img class="element__image" alt="image">
                         <h2 class="element__text"></h2>
                         <button class="element__button-like" type="button" aria-label="кнопка Нравится"></button>
                         <button class="element__button-trash"  type="button" aria-label="кнопка удалить"></button>
-                    </div>
+                    </li>
                 </template>
-            </section>
+            </ul>
 
             <section class="popup"> 
                 <form class="popup__container" name="popupform" method="GET" action="#"> 
@@ -41,11 +41,11 @@
                         <input type="text" name="about" value="Исследователь океана" placeholder="О себе" class="popup__info popup__info_job" required>
                     </fieldset>
                     <button type="submit" class="popup__button">Сохранить</button> 
+                    <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon"></button>
                 </form>
-                <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon"></button> 
             </section>
 
-            <section class="popup popup__new-place"> 
+            <section class="popup popup_new-place"> 
                 <form class="popup__container" name="popupform" method="GET" action="#"> 
                     <h2 class="popup__heading">Новое место</h2>
                     <fieldset class="popup__input"> 
@@ -53,16 +53,16 @@
                         <input type="text" name="link" value="" placeholder="Ссылка на картинку" class="popup__info popup__info_link" required>
                     </fieldset>
                     <button type="submit" class="popup__button">Создать</button> 
-                </form>
-                <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon popup__close-add"></button> 
+                    <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon popup__close-add"></button>
+                </form> 
             </section> 
 
-            <section class="popup popup__image">
-                <figure class="popup__form-image">
+            <section class="popup popup_image-place">
+                <figure class="popup__form-image"> 
+                    <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon popup__close-image"></button>
                     <img class="popup__big-image" src="#" alt="image">
-                    <figcaption class="popup__text-image"></figcaption>
+                    <figcaption class="popup__text-image"></figcaption>  
                 </figure>
-                <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon popup__close-image"></button> 
             </section>
         </main>
         <footer class="footer">
