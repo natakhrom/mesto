@@ -1,4 +1,4 @@
-.element__text {
+.card__text {
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-style: normal;
     font-size: 1.5rem;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 570px) {
-    .element__text {
+    .card__text {
     font-size: 2.4rem;
     line-height: 2.9rem;
     }

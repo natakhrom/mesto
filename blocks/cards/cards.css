@@ -1,13 +1,15 @@
-.elements {
+.cards {
     max-width: 882px;
+    margin: auto;
     padding: 50px 0 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 282px);
     grid-gap: 21px 18px;
 }
 
 @media screen and (max-width: 550px) {
-    .elements {
+    .cards {
         padding-top: 36px;
         width: 100%;
     }

@@ -22,13 +22,13 @@
                 <button class="profile__add-button" type="button"></button> 
             </section>
 
-            <ul class="elements">
+            <ul class="cards">
                 <template id="card">
-                    <li class="element">
-                        <img class="element__image" alt="image">
-                        <h2 class="element__text"></h2>
-                        <button class="element__button-like" type="button" aria-label="кнопка Нравится"></button>
-                        <button class="element__button-trash"  type="button" aria-label="кнопка удалить"></button>
+                    <li class="card">
+                        <img class="card__image" alt="image">
+                        <h2 class="card__text"></h2>
+                        <button class="card__button-like" type="button" aria-label="кнопка Нравится"></button>
+                        <button class="card__button-trash"  type="button" aria-label="кнопка удалить"></button>
                     </li>
                 </template>
             </ul>
@@ -50,7 +50,7 @@
                     <h2 class="popup__heading">Новое место</h2>
                     <fieldset class="popup__input"> 
                         <input type="text" name="title" value="" placeholder="Название" class="popup__info popup__info_title" required> 
-                        <input type="text" name="link" value="" placeholder="Ссылка на картинку" class="popup__info popup__info_link" required>
+                        <input type="url" name="link" value="" placeholder="Ссылка на картинку" class="popup__info popup__info_link" required>
                     </fieldset>
                     <button type="submit" class="popup__button">Создать</button> 
                     <button type="reset" aria-label="кнопка Закрыть" class="popup__close-icon popup__close-add"></button>

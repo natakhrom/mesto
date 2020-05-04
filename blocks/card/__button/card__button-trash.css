@@ -1,4 +1,4 @@
-.element__button-trash {
+.card__button-trash {
     width: 18px;
     height: 19px;
     background-image: url(../../../images/trash.svg);
@@ -14,7 +14,7 @@
     justify-self: end;
 }
 
-.element__button-trash:hover {
+.card__button-trash:hover {
     cursor: pointer;
     opacity: 0.6;
 }

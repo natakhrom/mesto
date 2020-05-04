@@ -6,7 +6,7 @@ const jobInput = document.querySelector('.popup__info_job');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__text');
 const avatarImg = document.querySelector('.profile__avatar');
-const cardElements = document.querySelector('.elements');
+const cardsContainer = document.querySelector('.cards');
 const popupFormNew = document.querySelector('.popup_new-place');
 const titleNewPlaсe = document.querySelector('.popup__info_title');
 const linkNewPlaсe = document.querySelector('.popup__info_link');
@@ -51,25 +51,25 @@ function togglePopup(popupElement) {
 
 // Обработчик клика на кнопку "лайк" карточки. 
 function likeButtonClick(evt) {
-    evt.target.classList.toggle('element__button-like_active');
+    evt.target.classList.toggle('card__button-like_active');
 }
 
 // Обработчик клика на картинку для увеличения изображения.
 function magnifyImage(evt) {
-    togglePopup(popupImage);
     image.src = evt.target.src;
     imageText.textContent = evt.target.alt; 
+    togglePopup(popupImage);
 }
 
 // Обработчик клика на кнопку "удалить" карточку.
 function binButtonClick(evt) {
     const binBtn = evt.target;
-    const cardContainer = binBtn.closest('.element');
+    const cardContainer = binBtn.closest('.card');
 
-    const likeBtn = cardContainer.querySelector('.element__button-like');
+    const likeBtn = cardContainer.querySelector('.card__button-like');
     likeBtn.removeEventListener('click', likeButtonClick);
 
-    const imgElement = cardContainer.querySelector('.element__image');
+    const imgElement = cardContainer.querySelector('.card__image');
     imgElement.removeEventListener('click', magnifyImage);
 
     binBtn.removeEventListener('click', binButtonClick);
@@ -79,14 +79,14 @@ function binButtonClick(evt) {
 // Создание новой карточки через клонирование шаблона.
 function createNewCard(name, link) {
     const cardTemplateClone = cardTemplate.cloneNode(true);
-    const imgElement = cardTemplateClone.querySelector('.element__image');
+    const imgElement = cardTemplateClone.querySelector('.card__image');
     
     imgElement.src = link;
     imgElement.alt = name;
-    cardTemplateClone.querySelector('.element__text').textContent = name;
+    cardTemplateClone.querySelector('.card__text').textContent = name;
 
-    cardTemplateClone.querySelector('.element__button-like').addEventListener('click', likeButtonClick);
-    cardTemplateClone.querySelector('.element__button-trash').addEventListener('click', binButtonClick);
+    cardTemplateClone.querySelector('.card__button-like').addEventListener('click', likeButtonClick);
+    cardTemplateClone.querySelector('.card__button-trash').addEventListener('click', binButtonClick);
 
     imgElement.addEventListener('click', magnifyImage);
 
@@ -95,18 +95,13 @@ function createNewCard(name, link) {
 
 // Добавление начального набора карточек.
 function loadInitialCards() {
-    initialCards.forEach((element) => cardElements.append(createNewCard(element.name, element.link)));
+    initialCards.forEach((element) => cardsContainer.append(createNewCard(element.name, element.link)));
 }
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function saveEditedProfile(evt) {
     evt.preventDefault();   // Эта строчка отменяет стандартную отправку формы.
-
-    // в HTML есть свойство "required" если одно из полей пустое оно не будет сохранять и закрывать форму.
-    // if (nameInput.value.length === 0 || jobInput.value === 0) {
-    //     return;
-    // }
 
     // Вставьте новые значения с помощью textContent
     nameProfile.textContent = nameInput.value;
@@ -121,19 +116,21 @@ function addNewCard(evt) {
     evt.preventDefault();
     
     const newCard = createNewCard(titleNewPlaсe.value, linkNewPlaсe.value);
-    cardElements.prepend(newCard);
+    cardsContainer.prepend(newCard);
     
     togglePopup(popupFormNew);
 }
 
+function openEditPopup() {
+    nameInput.value = nameProfile.textContent;
+    jobInput.value = jobProfile.textContent;
+    togglePopup(popupForm);
+};
+
 loadInitialCards();
 
 // событие по нажатию кнопки редактирования.
-editButton.addEventListener('click', function() {
-    togglePopup(popupForm);
-    nameInput.value = nameProfile.textContent;
-    jobInput.value = jobProfile.textContent;
-});
+editButton.addEventListener('click', openEditPopup);
 
 // событие по нажатию кнопки "закрыть" форму редактирования.
 closeEditButton.addEventListener('click', () => togglePopup(popupForm)); 
