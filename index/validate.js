@@ -57,7 +57,7 @@ const toggleButtonState = (settings, inputList, buttonElement) => {
   }
 };
 
-//функция, которая добавляет слушателей 
+//Функция, которая добавляет слушателей 
 const setEventListeners = (settings, formElement) => {
   // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from

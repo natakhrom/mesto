@@ -109,7 +109,6 @@ function saveEditedProfile(evt) {
     if (hasInvalidInput(inputList))
         return;
 
-    // Вставьте новые значения с помощью textContent
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
     avatarImg.alt = `фото ${nameInput.value}`;
@@ -132,10 +131,38 @@ function addNewCard(evt) {
     togglePopup(popupFormNew);
 }
 
+function cleanForm(formElement) {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__info'));
+    const settings = {
+        inputErrorClass: 'popup__info_type_error',
+        errorClass: 'popup__info-error_active'
+    };  
+
+    inputList.forEach((element) => {
+        hideInputError(settings, formElement, element);
+    });
+}
+
 function openEditPopup() {
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
+
+    const formElement = popupForm.querySelector('.popup__container');
+    const submitBtn = formElement.querySelector('.popup__button');
+    submitBtn.classList.remove('popup__button_disabled');
+
+    cleanForm(formElement);
     togglePopup(popupForm);
+}
+
+function openNewCardPopup() {
+    titleNewPlaсe.value = '';
+    linkNewPlaсe.value = '';
+
+    const formElement = popupFormNew.querySelector('.popup__container');
+
+    cleanForm(formElement);
+    togglePopup(popupFormNew);
 }
 
 // Обработчик события клика на overlay.
@@ -164,47 +191,27 @@ function keyDownHandler(evt) {
     }
 }
 
- // Добавление обработчика нажатия клавиш.
-function addKeyDownListener() {
-    document.addEventListener('keydown', keyDownHandler);
-}
-
-function closeForm(evt) {
-    const closeBtn = evt.target;
-    const parentPopup = closeBtn.closest('.popup');
-    const parentForm = parentPopup.querySelector('.popup__container');
-    const settings = {
-        inputErrorClass: 'popup__info_type_error',
-        errorClass: 'popup__info-error_active'
-      };
-    
-    const inputList = Array.from(parentForm.querySelectorAll('.popup__info'))
-    inputList.forEach((element) => {
-        hideInputError(settings, parentForm, element);
-    });
-    togglePopup(parentPopup);
-}
-
 loadInitialCards();
 
 addClickOnOverlayListener();
 
-addKeyDownListener();
+// событие нажатия кнопки клавиатуры.
+document.addEventListener('keydown', keyDownHandler);
 
 // событие по нажатию кнопки редактирования.
 editButton.addEventListener('click', openEditPopup);
 
 // событие по нажатию кнопки "закрыть" форму редактирования.
-closeEditButton.addEventListener('click', closeForm); 
+closeEditButton.addEventListener('click', () => togglePopup(popupForm)); 
 
 // событие по нажатию кнопки "сохранить" форму редактирования.
 popupForm.addEventListener('submit', saveEditedProfile);
 
 // событие по нажатию кнопки "добавить" новое изображение.
-addButton.addEventListener('click', () => togglePopup(popupFormNew));
+addButton.addEventListener('click', openNewCardPopup);
  
 // событие по нажатию кнопки "закрыть" форму добавления нового изображения.
-closeAddButton.addEventListener('click', closeForm); 
+closeAddButton.addEventListener('click', () => togglePopup(popupFormNew)); 
 
 // событие по нажатию кнопки "сохранить" для нового изображения.
 popupFormNew.addEventListener('submit', addNewCard);
