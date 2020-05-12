@@ -1,6 +1,6 @@
 const editButton = document.querySelector('.profile__edit-button'); 
 const closeEditButton = document.querySelector('.popup__close-icon');
-const popupForm = document.querySelector('.popup');
+const popupForm = document.querySelector('.popup_edit-form');
 const nameInput = document.querySelector('.popup__info_name');
 const jobInput = document.querySelector('.popup__info_job');
 const nameProfile = document.querySelector('.profile__name');
@@ -16,6 +16,7 @@ const popupImage = document.querySelector('.popup_image-place');
 const closeImage = document.querySelector('.popup__close-image');
 const image = document.querySelector('.popup__big-image');
 const imageText = document.querySelector('.popup__text-image');
+const overlayList = Array.from(document.querySelectorAll('.popup'));
 const cardTemplate = document.querySelector('#card').content;
 const initialCards = [
     {
@@ -103,6 +104,11 @@ function loadInitialCards() {
 function saveEditedProfile(evt) {
     evt.preventDefault();   // Эта строчка отменяет стандартную отправку формы.
 
+    const inputList = Array.from(evt.currentTarget.querySelectorAll('.popup__info'));
+
+    if (hasInvalidInput(inputList))
+        return;
+
     // Вставьте новые значения с помощью textContent
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
@@ -114,6 +120,11 @@ function saveEditedProfile(evt) {
 // Обработчик добавления новой карточки.
 function addNewCard(evt) {
     evt.preventDefault();
+
+    const inputList = Array.from(evt.currentTarget.querySelectorAll('.popup__info'));
+
+    if (hasInvalidInput(inputList))
+        return;
     
     const newCard = createNewCard(titleNewPlaсe.value, linkNewPlaсe.value);
     cardsContainer.prepend(newCard);
@@ -125,15 +136,66 @@ function openEditPopup() {
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
     togglePopup(popupForm);
-};
+}
+
+// Обработчик события клика на overlay.
+function clickOnOverlayHandler(evt) {
+    if (evt.target === evt.currentTarget) {
+        togglePopup(evt.currentTarget);
+    }
+}
+
+// Добавление обработчика клика на overlay.
+function addClickOnOverlayListener() {
+    overlayList.forEach((element) => {
+        element.addEventListener('click', clickOnOverlayHandler); 
+    });
+}
+ 
+// Обработчик нажатия клавиш на клавиатуре.
+function keyDownHandler(evt) {
+    if (evt.key === 'Escape') {
+        // Нас интересует только Esc.
+        const activeForm = overlayList.find((element) => element.classList.contains('popup_opened'));
+
+        if (activeForm !== undefined) {
+            togglePopup(activeForm);
+        }
+    }
+}
+
+ // Добавление обработчика нажатия клавиш.
+function addKeyDownListener() {
+    document.addEventListener('keydown', keyDownHandler);
+}
+
+function closeForm(evt) {
+    const closeBtn = evt.target;
+    const parentPopup = closeBtn.closest('.popup');
+    const parentForm = parentPopup.querySelector('.popup__container');
+    const settings = {
+        inputErrorClass: 'popup__info_type_error',
+        errorClass: 'popup__info-error_active'
+      };
+    
+    const inputList = Array.from(parentForm.querySelectorAll('.popup__info'))
+    inputList.forEach((element) => {
+        hideInputError(settings, parentForm, element);
+    });
+    togglePopup(parentPopup);
+}
 
 loadInitialCards();
+
+addClickOnOverlayListener();
+
+addKeyDownListener();
 
 // событие по нажатию кнопки редактирования.
 editButton.addEventListener('click', openEditPopup);
 
 // событие по нажатию кнопки "закрыть" форму редактирования.
-closeEditButton.addEventListener('click', () => togglePopup(popupForm)); 
+closeEditButton.addEventListener('click', closeForm); 
 
 // событие по нажатию кнопки "сохранить" форму редактирования.
 popupForm.addEventListener('submit', saveEditedProfile);
@@ -142,7 +204,7 @@ popupForm.addEventListener('submit', saveEditedProfile);
 addButton.addEventListener('click', () => togglePopup(popupFormNew));
  
 // событие по нажатию кнопки "закрыть" форму добавления нового изображения.
-closeAddButton.addEventListener('click', () => togglePopup(popupFormNew)); 
+closeAddButton.addEventListener('click', closeForm); 
 
 // событие по нажатию кнопки "сохранить" для нового изображения.
 popupFormNew.addEventListener('submit', addNewCard);

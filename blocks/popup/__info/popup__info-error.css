@@ -1,0 +1,17 @@
+.popup__info-error {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 0.75rem;
+    font-weight: normal;
+    line-height: 0.93rem;
+    color: #FF0000;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.popup__info-error:last-of-type {
+    top: 95px;
+    left: 0;
+}
