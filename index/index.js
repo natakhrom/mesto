@@ -45,9 +45,33 @@ const initialCards = [
     },
 ];
 
-// Обработчик открытия-закрытия pop-up
+// Обработчик открытия-закрытия pop-up.
 function togglePopup(popupElement) {
     popupElement.classList.toggle('popup_opened');
+}
+
+// Обрабочик на подписку Esc для открытой формы.
+function showPopup(popupElement) {
+    document.addEventListener('keydown', keyDownHandler);
+    togglePopup(popupElement);
+}
+
+// Обрабочик на отписку при закрытии формы.
+function hidePopup(popupElement) {
+    document.removeEventListener('keydown', keyDownHandler);
+    togglePopup(popupElement);
+}
+
+// Обработчик нажатия клавиши Esc на клавиатуре.
+function keyDownHandler(evt) {
+    if (evt.key === 'Escape') {
+        // Нас интересует только Esc.
+        const activeForm = overlayList.find((element) => element.classList.contains('popup_opened'));
+
+        if (activeForm !== undefined) {
+            hidePopup(activeForm);
+        }
+    }
 }
 
 // Обработчик клика на кнопку "лайк" карточки. 
@@ -59,7 +83,7 @@ function likeButtonClick(evt) {
 function magnifyImage(evt) {
     image.src = evt.target.src;
     imageText.textContent = evt.target.alt; 
-    togglePopup(popupImage);
+    showPopup(popupImage);
 }
 
 // Обработчик клика на кнопку "удалить" карточку.
@@ -113,7 +137,7 @@ function saveEditedProfile(evt) {
     jobProfile.textContent = jobInput.value;
     avatarImg.alt = `фото ${nameInput.value}`;
 
-    togglePopup(popupForm);
+    hidePopup(popupForm);
 }
 
 // Обработчик добавления новой карточки.
@@ -128,7 +152,7 @@ function addNewCard(evt) {
     const newCard = createNewCard(titleNewPlaсe.value, linkNewPlaсe.value);
     cardsContainer.prepend(newCard);
     
-    togglePopup(popupFormNew);
+    hidePopup(popupFormNew);
 }
 
 function cleanForm(formElement) {
@@ -152,7 +176,7 @@ function openEditPopup() {
     submitBtn.classList.remove('popup__button_disabled');
 
     cleanForm(formElement);
-    togglePopup(popupForm);
+    showPopup(popupForm);
 }
 
 function openNewCardPopup() {
@@ -162,13 +186,13 @@ function openNewCardPopup() {
     const formElement = popupFormNew.querySelector('.popup__container');
 
     cleanForm(formElement);
-    togglePopup(popupFormNew);
+    showPopup(popupFormNew);
 }
 
 // Обработчик события клика на overlay.
 function clickOnOverlayHandler(evt) {
     if (evt.target === evt.currentTarget) {
-        togglePopup(evt.currentTarget);
+        hidePopup(evt.currentTarget);
     }
 }
 
@@ -178,31 +202,16 @@ function addClickOnOverlayListener() {
         element.addEventListener('click', clickOnOverlayHandler); 
     });
 }
- 
-// Обработчик нажатия клавиш на клавиатуре.
-function keyDownHandler(evt) {
-    if (evt.key === 'Escape') {
-        // Нас интересует только Esc.
-        const activeForm = overlayList.find((element) => element.classList.contains('popup_opened'));
-
-        if (activeForm !== undefined) {
-            togglePopup(activeForm);
-        }
-    }
-}
 
 loadInitialCards();
 
 addClickOnOverlayListener();
 
-// событие нажатия кнопки клавиатуры.
-document.addEventListener('keydown', keyDownHandler);
-
 // событие по нажатию кнопки редактирования.
 editButton.addEventListener('click', openEditPopup);
 
 // событие по нажатию кнопки "закрыть" форму редактирования.
-closeEditButton.addEventListener('click', () => togglePopup(popupForm)); 
+closeEditButton.addEventListener('click', () => hidePopup(popupForm)); 
 
 // событие по нажатию кнопки "сохранить" форму редактирования.
 popupForm.addEventListener('submit', saveEditedProfile);
@@ -211,10 +220,10 @@ popupForm.addEventListener('submit', saveEditedProfile);
 addButton.addEventListener('click', openNewCardPopup);
  
 // событие по нажатию кнопки "закрыть" форму добавления нового изображения.
-closeAddButton.addEventListener('click', () => togglePopup(popupFormNew)); 
+closeAddButton.addEventListener('click', () => hidePopup(popupFormNew)); 
 
 // событие по нажатию кнопки "сохранить" для нового изображения.
 popupFormNew.addEventListener('submit', addNewCard);
 
 // событие по нажатию на кнопку закрыть для увеличенной версии картинки.
-closeImage.addEventListener('click', () => togglePopup(popupImage)); 
+closeImage.addEventListener('click', () => hidePopup(popupImage)); 
