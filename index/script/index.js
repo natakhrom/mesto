@@ -8,15 +8,14 @@ const jobProfile = document.querySelector('.profile__text');
 const avatarImg = document.querySelector('.profile__avatar');
 const cardsContainer = document.querySelector('.cards');
 const popupFormNew = document.querySelector('.popup_new-place');
-const titleNewPlaсe = document.querySelector('.popup__info_title');
-const linkNewPlaсe = document.querySelector('.popup__info_link');
+const titleNewPlace = document.querySelector('.popup__info_title');
+const linkNewPlace = document.querySelector('.popup__info_link');
 const addButton = document.querySelector('.profile__add-button');
 const closeAddButton = document.querySelector('.popup__close-add');
 const popupImage = document.querySelector('.popup_image-place');
 const closeImage = document.querySelector('.popup__close-image');
 const image = document.querySelector('.popup__big-image');
 const imageText = document.querySelector('.popup__text-image');
-const overlayList = Array.from(document.querySelectorAll('.popup'));
 const cardTemplate = document.querySelector('#card').content;
 const initialCards = [
     {
@@ -66,7 +65,7 @@ function hidePopup(popupElement) {
 function keyDownHandler(evt) {
     if (evt.key === 'Escape') {
         // Нас интересует только Esc.
-        const activeForm = overlayList.find((element) => element.classList.contains('popup_opened'));
+        const activeForm = document.querySelector('.popup_opened');
 
         if (activeForm !== undefined) {
             hidePopup(activeForm);
@@ -149,7 +148,7 @@ function addNewCard(evt) {
     if (hasInvalidInput(inputList))
         return;
     
-    const newCard = createNewCard(titleNewPlaсe.value, linkNewPlaсe.value);
+    const newCard = createNewCard(titleNewPlace.value, linkNewPlace.value);
     cardsContainer.prepend(newCard);
     
     hidePopup(popupFormNew);
@@ -180,10 +179,8 @@ function openEditPopup() {
 }
 
 function openNewCardPopup() {
-    titleNewPlaсe.value = '';
-    linkNewPlaсe.value = '';
-
     const formElement = popupFormNew.querySelector('.popup__container');
+    formElement.reset();
 
     cleanForm(formElement);
     showPopup(popupFormNew);
@@ -198,6 +195,7 @@ function clickOnOverlayHandler(evt) {
 
 // Добавление обработчика клика на overlay.
 function addClickOnOverlayListener() {
+    const overlayList = Array.from(document.querySelectorAll('.popup'));
     overlayList.forEach((element) => {
         element.addEventListener('click', clickOnOverlayHandler); 
     });

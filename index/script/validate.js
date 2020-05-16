@@ -58,25 +58,30 @@ const toggleButtonState = (settings, inputList, buttonElement) => {
 };
 
 //Функция, которая добавляет слушателей 
-const setEventListeners = (settings, formElement) => {
-  // Находим все поля внутри формы,
-  // сделаем из них массив методом Array.from
-  const inputList = Array.from(formElement.querySelectorAll(settings.inputElement));           //'.popup__info'
-  const buttonElement = formElement.querySelector(settings.submitButtonSelector);              //'.popup__button'
-
-  // Вызовем toggleButtonState и передадим ей массив полей и кнопку
-  toggleButtonState(settings, inputList, buttonElement);
-  
-  // Обойдем все элементы полученной коллекции
-  inputList.forEach((inputElement) => {
-    // каждому полю добавим обработчик события input
-    inputElement.addEventListener('input', () => {
-      // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый элемент
-      isValid(settings, formElement, inputElement);
-      toggleButtonState(settings, inputList, buttonElement);
+const setEventListeners = (settings, ...formElements) => {
+  for (let formElement of formElements) {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
     });
-  });
+    // Находим все поля внутри формы,
+    // сделаем из них массив методом Array.from
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputElement));           //'.popup__info'
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);              //'.popup__button'
+
+    // Вызовем toggleButtonState и передадим ей массив полей и кнопку
+    toggleButtonState(settings, inputList, buttonElement);
+    
+    // Обойдем все элементы полученной коллекции
+    inputList.forEach((inputElement) => {
+      // каждому полю добавим обработчик события input
+      inputElement.addEventListener('input', () => {
+        // Внутри колбэка вызовем isValid,
+        // передав ей форму и проверяемый элемент
+        isValid(settings, formElement, inputElement);
+        toggleButtonState(settings, inputList, buttonElement);
+      });
+    });
+  }
 };
   
 const enableValidation = (settings) => {
@@ -84,14 +89,7 @@ const enableValidation = (settings) => {
   // сделаем из них массив методом Array.from
   const formList = Array.from(document.querySelectorAll(settings.formElement));                    //'.popup__container'
   
-  // Переберём полученную коллекцию
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-  
-    setEventListeners(settings, formElement);
-  });
+  setEventListeners(settings, ...formList);
 };
 
 enableValidation({
