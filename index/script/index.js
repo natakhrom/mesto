@@ -1,5 +1,4 @@
-const editButton = document.querySelector('.profile__edit-button'); 
-const closeEditButton = document.querySelector('.popup__close-icon');
+const editButton = document.querySelector('.profile__edit-button');
 const popupForm = document.querySelector('.popup_edit-form');
 const nameInput = document.querySelector('.popup__info_name');
 const jobInput = document.querySelector('.popup__info_job');
@@ -11,9 +10,7 @@ const popupFormNew = document.querySelector('.popup_new-place');
 const titleNewPlace = document.querySelector('.popup__info_title');
 const linkNewPlace = document.querySelector('.popup__info_link');
 const addButton = document.querySelector('.profile__add-button');
-const closeAddButton = document.querySelector('.popup__close-add');
 const popupImage = document.querySelector('.popup_image-place');
-const closeImage = document.querySelector('.popup__close-image');
 const image = document.querySelector('.popup__big-image');
 const imageText = document.querySelector('.popup__text-image');
 const cardTemplate = document.querySelector('#card').content;
@@ -49,6 +46,19 @@ function togglePopup(popupElement) {
     popupElement.classList.toggle('popup_opened');
 }
 
+// Обработчик нажатия клавиши Esc на клавиатуре.
+function keyDownHandler(evt) {
+    if (evt.key === 'Escape') {
+        // Нас интересует только Esc.
+        const activeForm = document.querySelector('.popup_opened');
+
+        if (activeForm !== undefined) {
+            document.removeEventListener('keydown', keyDownHandler);
+            togglePopup(activeForm);
+        }
+    }
+}
+
 // Обрабочик на подписку Esc для открытой формы.
 function showPopup(popupElement) {
     document.addEventListener('keydown', keyDownHandler);
@@ -59,18 +69,6 @@ function showPopup(popupElement) {
 function hidePopup(popupElement) {
     document.removeEventListener('keydown', keyDownHandler);
     togglePopup(popupElement);
-}
-
-// Обработчик нажатия клавиши Esc на клавиатуре.
-function keyDownHandler(evt) {
-    if (evt.key === 'Escape') {
-        // Нас интересует только Esc.
-        const activeForm = document.querySelector('.popup_opened');
-
-        if (activeForm !== undefined) {
-            hidePopup(activeForm);
-        }
-    }
 }
 
 // Обработчик клика на кнопку "лайк" карточки. 
@@ -180,6 +178,8 @@ function openEditPopup() {
 
 function openNewCardPopup() {
     const formElement = popupFormNew.querySelector('.popup__container');
+    const submitBtn = formElement.querySelector('.popup__button');
+    submitBtn.classList.add('popup__button_disabled');
     formElement.reset();
 
     cleanForm(formElement);
@@ -201,15 +201,23 @@ function addClickOnOverlayListener() {
     });
 }
 
+// Закрытие фрмы по клику на крестик 
+function addCloseButtonEvent() {
+    const closeBtnList = Array.from(document.querySelectorAll('.popup__close-icon'));
+    closeBtnList.forEach((closeButton) => {
+        const formElement = closeButton.closest('.popup');
+        closeButton.addEventListener('click', () => hidePopup(formElement));
+    });
+}
+
 loadInitialCards();
 
 addClickOnOverlayListener();
 
+addCloseButtonEvent();
+
 // событие по нажатию кнопки редактирования.
 editButton.addEventListener('click', openEditPopup);
-
-// событие по нажатию кнопки "закрыть" форму редактирования.
-closeEditButton.addEventListener('click', () => hidePopup(popupForm)); 
 
 // событие по нажатию кнопки "сохранить" форму редактирования.
 popupForm.addEventListener('submit', saveEditedProfile);
@@ -217,11 +225,5 @@ popupForm.addEventListener('submit', saveEditedProfile);
 // событие по нажатию кнопки "добавить" новое изображение.
 addButton.addEventListener('click', openNewCardPopup);
  
-// событие по нажатию кнопки "закрыть" форму добавления нового изображения.
-closeAddButton.addEventListener('click', () => hidePopup(popupFormNew)); 
-
 // событие по нажатию кнопки "сохранить" для нового изображения.
 popupFormNew.addEventListener('submit', addNewCard);
-
-// событие по нажатию на кнопку закрыть для увеличенной версии картинки.
-closeImage.addEventListener('click', () => hidePopup(popupImage)); 
