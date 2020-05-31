@@ -1,3 +1,7 @@
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
+import { showPopup, hidePopup, hasInvalidInput, hideInputError } from './utils.js'
+
 const editButton = document.querySelector('.profile__edit-button');
 const popupForm = document.querySelector('.popup_edit-form');
 const nameInput = document.querySelector('.popup__info_name');
@@ -10,10 +14,8 @@ const popupFormNew = document.querySelector('.popup_new-place');
 const titleNewPlace = document.querySelector('.popup__info_title');
 const linkNewPlace = document.querySelector('.popup__info_link');
 const addButton = document.querySelector('.profile__add-button');
-const popupImage = document.querySelector('.popup_image-place');
-const image = document.querySelector('.popup__big-image');
-const imageText = document.querySelector('.popup__text-image');
-const cardTemplate = document.querySelector('#card').content;
+
+
 const initialCards = [
     {
         name: 'Бурятия',
@@ -41,87 +43,17 @@ const initialCards = [
     },
 ];
 
-// Обработчик открытия-закрытия pop-up.
-function togglePopup(popupElement) {
-    popupElement.classList.toggle('popup_opened');
-}
-
-// Обработчик нажатия клавиши Esc на клавиатуре.
-function keyDownHandler(evt) {
-    if (evt.key === 'Escape') {
-        // Нас интересует только Esc.
-        const activeForm = document.querySelector('.popup_opened');
-
-        if (activeForm !== undefined) {
-            document.removeEventListener('keydown', keyDownHandler);
-            togglePopup(activeForm);
-        }
-    }
-}
-
-// Обрабочик на подписку Esc для открытой формы.
-function showPopup(popupElement) {
-    document.addEventListener('keydown', keyDownHandler);
-    togglePopup(popupElement);
-}
-
-// Обрабочик на отписку при закрытии формы.
-function hidePopup(popupElement) {
-    document.removeEventListener('keydown', keyDownHandler);
-    togglePopup(popupElement);
-}
-
-// Обработчик клика на кнопку "лайк" карточки. 
-function likeButtonClick(evt) {
-    evt.target.classList.toggle('card__button-like_active');
-}
-
-// Обработчик клика на картинку для увеличения изображения.
-function magnifyImage(evt) {
-    image.src = evt.target.src;
-    imageText.textContent = evt.target.alt; 
-    showPopup(popupImage);
-}
-
-// Обработчик клика на кнопку "удалить" карточку.
-function binButtonClick(evt) {
-    const binBtn = evt.target;
-    const cardContainer = binBtn.closest('.card');
-
-    const likeBtn = cardContainer.querySelector('.card__button-like');
-    likeBtn.removeEventListener('click', likeButtonClick);
-
-    const imgElement = cardContainer.querySelector('.card__image');
-    imgElement.removeEventListener('click', magnifyImage);
-
-    binBtn.removeEventListener('click', binButtonClick);
-    cardContainer.remove();
-}
-
-// Создание новой карточки через клонирование шаблона.
-function createNewCard(name, link) {
-    const cardTemplateClone = cardTemplate.cloneNode(true);
-    const imgElement = cardTemplateClone.querySelector('.card__image');
-    
-    imgElement.src = link;
-    imgElement.alt = name;
-    cardTemplateClone.querySelector('.card__text').textContent = name;
-
-    cardTemplateClone.querySelector('.card__button-like').addEventListener('click', likeButtonClick);
-    cardTemplateClone.querySelector('.card__button-trash').addEventListener('click', binButtonClick);
-
-    imgElement.addEventListener('click', magnifyImage);
-
-    return cardTemplateClone;
-}
-
 // Добавление начального набора карточек.
 function loadInitialCards() {
-    initialCards.forEach((element) => cardsContainer.append(createNewCard(element.name, element.link)));
+    initialCards.forEach(element => { 
+        // Создадим экземпляр карточки
+        const card = new Card(element, '#card');
+        // Сгенерируем и добавим разметку для карточки в DOM
+        cardsContainer.append(card.generateCard())
+    });
 }
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+// Обработчик «отправки» формы
 function saveEditedProfile(evt) {
     evt.preventDefault();   // Эта строчка отменяет стандартную отправку формы.
 
@@ -146,8 +78,12 @@ function addNewCard(evt) {
     if (hasInvalidInput(inputList))
         return;
     
-    const newCard = createNewCard(titleNewPlace.value, linkNewPlace.value);
-    cardsContainer.prepend(newCard);
+    const data = {
+        name: titleNewPlace.value,
+        link: linkNewPlace.value
+    };
+    const newCard = new Card(data, '#card');
+    cardsContainer.prepend(newCard.generateCard());
     
     hidePopup(popupFormNew);
 }
@@ -159,8 +95,8 @@ function cleanForm(formElement) {
         errorClass: 'popup__info-error_active'
     };  
 
-    inputList.forEach((element) => {
-        hideInputError(settings, formElement, element);
+    inputList.forEach(inputElement => {
+        hideInputError(settings, formElement, inputElement);
     });
 }
 
@@ -210,11 +146,31 @@ function addCloseButtonEvent() {
     });
 }
 
+function addFormValidation() {
+    // Найдём все формы с указанным классом в DOM,
+    // сделаем из них массив методом Array.from
+    const formList = Array.from(document.querySelectorAll('.popup__container'));              //'.popup__container'
+
+    formList.forEach((formElement) => {
+        const formPopup = new FormValidator({
+            inputElement: '.popup__info',
+            submitButtonSelector: '.popup__button',
+            inactiveButtonClass: 'popup__button_disabled',
+            inputErrorClass: 'popup__info_type_error',
+            errorClass: 'popup__info-error_active'
+            }, formElement);
+
+        formPopup.enableValidation();
+    });
+}
+
 loadInitialCards();
 
 addClickOnOverlayListener();
 
 addCloseButtonEvent();
+
+addFormValidation();
 
 // событие по нажатию кнопки редактирования.
 editButton.addEventListener('click', openEditPopup);
