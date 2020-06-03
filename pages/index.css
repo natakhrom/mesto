@@ -11,19 +11,3 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/_image/popup_image-place.css);
 @import url(../blocks/footer/footer.css);
-
-html {
-    font-size: 16px;
-}
-
-@media screen and (max-width: 900px) {
-    html {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 570px) {
-    html {
-        font-size: 10px;
-    }
-}

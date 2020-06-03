@@ -29,14 +29,14 @@ function hidePopup(popupElement) {
 }
 
 // Метод, который проверяет валидность полей (принимает массив полей)
-function hasInvalidInput(inputList) {
-    // проходим по этому массиву методом some
-    return inputList.some((inputElement) => {
-     // Если поле не валидно, колбэк вернёт true
-      // Обход массива прекратится и вся фунцкция
-      // hasInvalidInput вернёт true
-      return !inputElement.validity.valid;
-    });
+function hasInvalidInput(...inputList) {
+    for (let inputElement of inputList) {
+        if (!inputElement.validity.valid) {
+            return true;
+        }
+    }
+
+    return false;
 };
 
 function hideInputError(settings, formElement, inputElement) {

@@ -2,8 +2,8 @@
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 2.625rem;
-    line-height: 3.5rem;
+    font-size: 42px;
+    line-height: 56px;
     margin: 0;
     grid-column: 2;
     grid-row: 1;
@@ -17,8 +17,8 @@
 
 @media screen and (max-width: 550px) {
     .profile__name {
-        font-size: 2.7rem;
-        line-height: 5.6rem;
+        font-size: 27px;
+        line-height: 56px;
         grid-column: 1;
         grid-row: 2;
         margin-top: 14px;

@@ -59,7 +59,8 @@ function saveEditedProfile(evt) {
 
     const inputList = Array.from(evt.currentTarget.querySelectorAll('.popup__info'));
 
-    if (hasInvalidInput(inputList))
+    //условный опертор предотвращает сохранение невалидных данных по нажатию на Enter. Так же для функции addNewCard.
+    if (hasInvalidInput(...inputList))
         return;
 
     nameProfile.textContent = nameInput.value;
@@ -73,9 +74,9 @@ function saveEditedProfile(evt) {
 function addNewCard(evt) {
     evt.preventDefault();
 
-    const inputList = Array.from(evt.currentTarget.querySelectorAll('.popup__info'));
+    const inputList = Array.from(evt.currentTarget.querySelectorAll('.popup__info')); 
 
-    if (hasInvalidInput(inputList))
+    if (hasInvalidInput(...inputList))
         return;
     
     const data = {

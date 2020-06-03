@@ -1,5 +1,9 @@
 import { showPopup } from './utils.js'
 
+const magnifiedForm = document.querySelector('.popup_image-place');
+const magnifiedImage = document.querySelector('.popup__big-image');
+const magnifiedCaption = document.querySelector('.popup__text-image');
+
 export default class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
@@ -22,10 +26,15 @@ export default class Card {
         // Запишем разметку в приватное поле _element. 
         // Так у других элементов появится доступ к ней.
         this._element = this._getTemplate();
+        this._imageElement = this._element.querySelector('.card__image');
+        this._buttonLike = this._element.querySelector('.card__button-like');
+        this._buttonTrash = this._element.querySelector('.card__button-trash');
+
         this._setEventListeners(); // добавили обработчики
       
         // Добавим данные
-        this._element.querySelector('.card__image').src = this._link;
+        this._imageElement.src = this._link;
+        this._imageElement.alt = `фото ${this._name}`;
         this._element.querySelector('.card__text').textContent = this._name;
       
         // Вернём элемент наружу
@@ -33,42 +42,37 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._element.querySelector('.card__button-like').addEventListener('click', () => {
-          this._likeButtonClick();
+        this._buttonLike.addEventListener('click', () => {
+            this._likeButtonClick();
         });
 
-        this._element.querySelector('.card__image').addEventListener('click', () => {
+        this._imageElement.addEventListener('click', () => {
             this._magnifyImage();
         });
 
-        this._element.querySelector('.card__button-trash').addEventListener('click', () => {
+        this._buttonTrash.addEventListener('click', () => {
             this._binButtonClick();
         });
     }
 
     _likeButtonClick() {
-        this._element.querySelector('.card__button-like').classList.toggle('card__button-like_active');
+        this._buttonLike.classList.toggle('card__button-like_active');
     }
 
     _magnifyImage() {
-        document.querySelector('.popup__big-image').src = this._link;
-        document.querySelector('.popup__text-image').textContent = this._name; 
+        magnifiedImage.src = this._link;
+        magnifiedImage.alt = `фото ${this._name}`;
+        magnifiedCaption.textContent = this._name; 
         
-        const bigImage = document.querySelector('.popup_image-place');
-        showPopup(bigImage);
+        showPopup(magnifiedForm);
     }
 
     _binButtonClick() {
-        const binBtn = this._element.querySelector('.card__button-trash');
-        this._element = binBtn.closest('.card');
-    
-        const likeBtn = this._element.querySelector('.card__button-like');
-        likeBtn.removeEventListener('click', this._likeButtonClick);
-    
-        const imgElement = this._element.querySelector('.card__image');
-        imgElement.removeEventListener('click', this._magnifyImage);
-    
-        binBtn.removeEventListener('click', this._binButtonClick);
+        this._buttonLike.removeEventListener('click', this._likeButtonClick);
+        this._imageElement.removeEventListener('click', this._magnifyImage);
+        this._buttonTrash.removeEventListener('click', this._binButtonClick);
+        
         this._element.remove();
+        this._element = null;
     }
 }

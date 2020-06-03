@@ -1,9 +1,9 @@
 .popup__info-error {
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-style: normal;
-    font-size: 0.75rem;
+    font-size: 12px;
     font-weight: normal;
-    line-height: 0.93rem;
+    line-height: 15px;
     color: #FF0000;
     position: absolute;
     top: 30px;
@@ -16,11 +16,11 @@
     left: 0;
 }
 
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
     .popup__info-error:last-of-type {
         top: 85px;
     }
-}
+} */
 
 @media screen and (max-width: 550px) {
     .popup__info-error {
