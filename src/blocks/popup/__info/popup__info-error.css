@@ -1,0 +1,32 @@
+.popup__info-error {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+    color: #FF0000;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.popup__info-error:last-of-type {
+    top: 95px;
+    left: 0;
+}
+
+/* @media screen and (max-width: 900px) {
+    .popup__info-error:last-of-type {
+        top: 85px;
+    }
+} */
+
+@media screen and (max-width: 550px) {
+    .popup__info-error {
+        top: 25px
+    }
+    .popup__info-error:last-of-type {
+        top: 69px;
+    }
+}

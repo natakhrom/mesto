@@ -1,0 +1,15 @@
+.popup__input {
+    width: 358px;
+    margin: 0 36px;
+    border-width: 0;
+    padding: 0;
+    position: relative;
+}
+
+@media screen and (max-width: 550px) {
+    .popup__input {
+        width: 80%;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
