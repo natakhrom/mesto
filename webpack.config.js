@@ -25,14 +25,12 @@ module.exports = {
             test: /\.(png|svg|jpg|gif)$/,
             //** при обработке этих файлов нужно использовать file-loader */ 
             loader: 'file-loader'
-            //loader: 'file-loader?name=./src/images/[name].[ext]'
           },
           {
             //** регулярное выражение, которое ищет все файлы с такими расширениями */ 
             test: /\.(otf|ttf|woff|woff2)$/,
             //** при обработке этих файлов нужно использовать file-loader */ 
             loader: 'file-loader'
-            //loader: 'file-loader?name=./src/vendor/fonts/[name].[ext]'
           },
           //** аналогично добавьте правило для работы с html */ 
           {
