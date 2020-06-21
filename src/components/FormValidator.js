@@ -1,5 +1,3 @@
-import { hasInvalidInput, hideInputError } from '../utils/utils.js'
-
 export default class FormValidator {
   constructor(data, formElement) {
     this._inputElement = data.inputElement;
@@ -22,13 +20,15 @@ export default class FormValidator {
   };
 
   //** Метод, который удаляет класс с ошибкой */ 
-  _hideInputError(inputElement) {
-    const settings = {
-      inputErrorClass: 'popup__info_type_error',
-      errorClass: 'popup__info-error_active'
-    };
-    
-    hideInputError(settings, this._formElement, inputElement);
+  hideInputError(settings, formElement, inputElement) {
+    //** Находим элемент ошибки */ 
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    //** Скрываем выделение input */ 
+    inputElement.classList.remove(settings.inputErrorClass);                            //** 'popup__info_type_error' */ 
+    //** Скрываем сообщение об ошибке */ 
+    errorElement.classList.remove(settings.errorClass);                                 //** 'popup__info-error_active' */ 
+    //** Очистим ошибку */ 
+    errorElement.textContent = '';
   };
 
   //** Метод, который проверяет валидность поля */ 
@@ -39,14 +39,30 @@ export default class FormValidator {
     }
     else {
       //** Если проходит, скроем */ 
-      this._hideInputError(inputElement);
+      const settings = {
+        inputErrorClass: 'popup__info_type_error',
+        errorClass: 'popup__info-error_active'
+      };
+      
+      this.hideInputError(settings, this._formElement, inputElement);
     }
+  };
+
+  //** Метод, который проверяет валидность полей (принимает массив полей) */ 
+  hasInvalidInput(...inputList) {
+    for (let inputElement of inputList) {
+        if (!inputElement.validity.valid) {
+            return true;
+        }
+    }
+
+    return false;
   };
 
   //** Метод принимает массив полей ввода и элемент кнопки, состояние которой нужно менять */ 
   _toggleButtonState(buttonElement, inputList) {
     // Если есть хотя бы один невалидный инпут
-    if (hasInvalidInput(...inputList)) {
+    if (this.hasInvalidInput(...inputList)) {
       //** сделай кнопку неактивной */ 
       buttonElement.classList.add(this._inactiveButtonClass);                          //** 'popup__button_disabled' */ 
     } 

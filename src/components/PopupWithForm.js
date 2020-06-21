@@ -1,6 +1,5 @@
 import Popup from './Popup.js';
 import FormValidator from './FormValidator.js';
-import { hasInvalidInput, hideInputError } from '../utils/utils.js'
 
 export default class PopupWithForm extends Popup {
     constructor(handleFormSubmit, popupSelector) {
@@ -10,7 +9,7 @@ export default class PopupWithForm extends Popup {
         this._button = this._popup.querySelector('.popup__button');
         this._inputList = this._popup.querySelectorAll('.popup__info');
 
-        const validator = new FormValidator({
+        this._validator = new FormValidator({
                 inputElement: '.popup__info',
                 submitButtonSelector: '.popup__button',
                 inactiveButtonClass: 'popup__button_disabled',
@@ -19,7 +18,7 @@ export default class PopupWithForm extends Popup {
             }, 
             this._popup);
 
-        validator.enableValidation();
+        this._validator.enableValidation();
     }
 
     _getInputValues() {
@@ -38,7 +37,7 @@ export default class PopupWithForm extends Popup {
 
             //** Даже с невалидными данными в форме можно вызвать submit нажав Enter. */ 
             //** Данный условный оператор обрабатывает такую ситуацию и не даёт завершить метод успешно если есть ошибки в данных. */ 
-            if (hasInvalidInput(...this._inputList)) {
+            if (this._validator.hasInvalidInput(...this._inputList)) {
                 return;
             }
 
@@ -59,7 +58,7 @@ export default class PopupWithForm extends Popup {
         };
 
         this._inputList.forEach(input => {
-            hideInputError(settings, this._popup, input);
+            this._validator.hideInputError(settings, this._popup, input);
         });
 
         super.open();

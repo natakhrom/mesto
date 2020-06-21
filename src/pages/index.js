@@ -6,9 +6,10 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
+const popupWithImage = new PopupWithImage('.popup_image-place');
+
 function handleCardClick(card) {
-    const popup = new PopupWithImage(card, '.popup_image-place');
-    popup.open();
+    popupWithImage.open(card);
 }
 
 const cardInserter = new Section({data: initialCards, renderer: cardItem => {

@@ -22,14 +22,22 @@ module.exports = {
           },
           {
             //** регулярное выражение, которое ищет все файлы с такими расширениями */ 
-            test: /\.(png|svg|jpg|gif|otf|ttf|woff|woff2)$/i,
+            test: /\.(png|svg|jpg|gif)$/,
             //** при обработке этих файлов нужно использовать file-loader */ 
             loader: 'file-loader'
+            //loader: 'file-loader?name=./src/images/[name].[ext]'
+          },
+          {
+            //** регулярное выражение, которое ищет все файлы с такими расширениями */ 
+            test: /\.(otf|ttf|woff|woff2)$/,
+            //** при обработке этих файлов нужно использовать file-loader */ 
+            loader: 'file-loader'
+            //loader: 'file-loader?name=./src/vendor/fonts/[name].[ext]'
           },
           //** аналогично добавьте правило для работы с html */ 
           {
-            test: /\.html$/i,
-            loader: 'html-loader',
+            test: /\.html$/,
+            loader: 'html-loader'
           },
           {
             //** применять это правило только к CSS-файлам */
