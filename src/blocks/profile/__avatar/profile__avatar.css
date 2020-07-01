@@ -5,6 +5,24 @@
     border-radius: 50%;
     grid-column: 1;
     grid-row: span 2;
+    background-image: url(../../../images/avatar.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile__avatar:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url(../../../images/Vector.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 550px) {

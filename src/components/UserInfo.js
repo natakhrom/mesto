@@ -13,8 +13,8 @@ export default class UserInfo {
         return userCard;
     }
 
-    setUserInfo({ firstname, about }) {
-        this._userName.textContent = firstname;
+    setUserInfo({ name, about }) {
+        this._userName.textContent = name;
         this._userAbout.textContent = about;
     }
 }

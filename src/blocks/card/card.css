@@ -2,6 +2,7 @@
 @import url(./__text/card__text.css);
 @import url(./__button/card__button-like.css);
 @import url(./__button/card__button-trash.css);
+@import url(./__counter/card__counter-likes.css);
 
 .card {
     background-color: white;
@@ -9,5 +10,4 @@
     border-radius: 10px;
     overflow: hidden;
     display: grid;
-    align-items: center;
 }

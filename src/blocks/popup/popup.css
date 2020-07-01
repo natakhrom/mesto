@@ -11,7 +11,9 @@
 @import url(./__info/_type/popup__info_type_error.css);
 @import url(./__info/popup__info-error.css);
 @import url(./__button/popup__button_disabled.css);
-
+@import url(./__button/popup__button-delete.css);
+@import url(./__info/popup__info_link-avatar.css);
+@import url(./__info/popup__info-error-avatar.css);
 
 .popup {
     width: 100%;

@@ -16,12 +16,6 @@
     left: 0;
 }
 
-/* @media screen and (max-width: 900px) {
-    .popup__info-error:last-of-type {
-        top: 85px;
-    }
-} */
-
 @media screen and (max-width: 550px) {
     .popup__info-error {
         top: 25px

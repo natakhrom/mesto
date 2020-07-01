@@ -9,6 +9,8 @@ export default class PopupWithForm extends Popup {
         this._button = this._popup.querySelector('.popup__button');
         this._inputList = this._popup.querySelectorAll('.popup__info');
 
+        this._buttonOriginalText = this._button.textContent;
+
         this._validator = new FormValidator({
                 inputElement: '.popup__info',
                 submitButtonSelector: '.popup__button',
@@ -49,8 +51,12 @@ export default class PopupWithForm extends Popup {
         super._setEventListeners();
     }
 
-    open() {
-        this._button.classList.add('popup__button_disabled');
+    open(buttonEnabled) {
+        this._button.textContent = this._buttonOriginalText;
+
+        if (!buttonEnabled) {
+            this._button.classList.add('popup__button_disabled');
+        }
 
         const settings = {
             'inputErrorClass': 'popup__info_type_error',
@@ -67,5 +73,9 @@ export default class PopupWithForm extends Popup {
     close() {
         super.close();
         this._popup.querySelector('.popup__container').reset();
+    }
+
+    setButtonText(text) {
+        this._button.textContent = text;
     }
 }
