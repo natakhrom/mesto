@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(data, cardSelector, handleCardClick, handleCardRemove, handleLikeClick) {
+    constructor(data, userId, cardSelector, handleCardClick, handleCardRemove, handleLikeClick) {
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
@@ -8,8 +8,8 @@ export default class Card {
         this._handleCardClick = handleCardClick;
         this._handleCardRemove = handleCardRemove;
         this._handleLikeClick = handleLikeClick;
-
-        this._liked = false;
+        this._removable = data.owner._id === userId;
+        this._liked = this._likes.some(item => item._id === userId);
     }
 
     _getTemplate() {
@@ -23,7 +23,7 @@ export default class Card {
         return cardElement;
     }
 
-    generateCard(removable, liked) {
+    generateCard() {
         //** Запишем разметку в приватное поле _element.  */ 
         //** Так у других элементов появится доступ к ней. */ 
         this._element = this._getTemplate();
@@ -32,9 +32,7 @@ export default class Card {
         this._buttonTrash = this._element.querySelector('.card__button-trash');
         this._likesCounter = this._element.querySelector('.card__counter-likes');
 
-        this._liked = liked;
-
-        if (!removable) {
+        if (!this._removable) {
             this._buttonTrash.classList.add('card__button-trash_hide');
         }
 
@@ -42,7 +40,7 @@ export default class Card {
             this._buttonLike.classList.add('card__button-like_active');
         }
 
-        this._setEventListeners(removable); //** Добавили обработчики */ 
+        this._setEventListeners(); //** Добавили обработчики */ 
       
         // Добавим данные
         this._imageElement.src = this._link;
@@ -76,7 +74,7 @@ export default class Card {
         this._likesCounter.textContent = count;
     }
 
-    _setEventListeners(removable) {
+    _setEventListeners() {
         this._buttonLike.addEventListener('click', () => {
             this._handleLikeClick(this);
         });
@@ -88,7 +86,7 @@ export default class Card {
             });
         });
 
-        if (removable) {
+        if (this._removable) {
             this._buttonTrash.addEventListener('click', () => {
                 this._handleCardRemove(this);
             });
