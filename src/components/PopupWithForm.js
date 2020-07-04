@@ -51,8 +51,6 @@ export default class PopupWithForm extends Popup {
     }
 
     open(buttonEnabled) {
-        //this._button.textContent = this._buttonOriginalText;
-
         if (!buttonEnabled) {
             this._button.classList.add('popup__button_disabled');
         }
