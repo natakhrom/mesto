@@ -22,14 +22,12 @@ const userInfo = new UserInfo('.profile__name', '.profile__text', '.profile__ava
 const cardInserter = new Section({ data: [], renderer: () => {}}, '.cards');
 const popupImageRemove = new PopupWithForm(() => {
     if (cardToRemove !== undefined) {
-        api.deleteCard(cardToRemove.getCardId(), 
-            () => { 
+        api.deleteCard(cardToRemove.getCardId()) 
+            .then(() => { 
                 cardToRemove.remove(); 
                 popupImageRemove.close();
-            });
-    } 
-    else {
-        popupImageRemove.close();
+            })
+            .catch(error => console.log(error));
     }
 }, '.popup_image-delete');
 
@@ -44,16 +42,20 @@ function handleCardRemove(card) {
 
 function handleLikeClick(card) {
     if (card.getCardLiked()) {
-        api.deleteLike(card.getCardId(), response => { 
-            card.switchLikeButton();
-            card.setActualLikeCounter(response.likes.length);
-        });
+        api.deleteLike(card.getCardId())  
+            .then(response => {
+                card.switchLikeButton();
+                card.setActualLikeCounter(response.likes.length);
+            })
+            .catch(error => console.log(error));
     }
     else {
-        api.putLike(card.getCardId(), response => { 
+        api.putLike(card.getCardId()) 
+            .then(response => { 
             card.switchLikeButton();
             card.setActualLikeCounter(response.likes.length);
-        });
+            })
+            .catch(error => console.log(error));
     }
 }
 
@@ -79,10 +81,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 const profilePopup = new PopupWithForm(personInfo => {
     profilePopup.setButtonText("Сохранение...");
-    api.patchEditProfile(personInfo.firstname, personInfo.about, 
-        response => {
+    api.patchEditProfile(personInfo.firstname, personInfo.about) 
+        .then(response => {
             userInfo.setUserInfo(response); 
             profilePopup.close(); 
+        })
+        .catch(error => console.log(error))
+        .finally(() => {
+            profilePopup.setButtonText(profilePopup.getButtonOriginalText());
         });
 }, '.popup_edit-form');
 
@@ -97,10 +103,15 @@ editButton.addEventListener('click', evt => {
 
 const newCardPopup = new PopupWithForm(newCard => {
     newCardPopup.setButtonText("Сохранение...");
-    api.postAddNewCard(newCard.title, newCard.link, response => {
+    api.postAddNewCard(newCard.title, newCard.link)
+        .then(response => {
         addNewCard(response, userId);
         newCardPopup.close();
-    });
+        })
+        .catch(error => console.log(error))
+        .finally(() => {
+            newCardPopup.setButtonText(newCardPopup.getButtonOriginalText());
+        });
 }, '.popup_new-place');
 
 //**  Cобытие по нажатию кнопки "добавить" новое изображение */  
@@ -110,9 +121,14 @@ addButton.addEventListener('click', () => {
 
 const popupAvatar = new PopupWithForm(data => {
     popupAvatar.setButtonText("Сохранение...");
-    api.patchNewAvatar(data.link, response => {
+    api.patchNewAvatar(data.link) 
+    .then(response => {
         userInfo.setAvatarImage(response);
         popupAvatar.close();
+    })
+    .catch(error => console.log(error))
+    .finally(() => {
+        popupAvatar.setButtonText(popupAvatar.getButtonOriginalText());
     });
 }, '.popup_avatar');
 

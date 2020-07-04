@@ -51,7 +51,7 @@ export default class PopupWithForm extends Popup {
     }
 
     open(buttonEnabled) {
-        this._button.textContent = this._buttonOriginalText;
+        //this._button.textContent = this._buttonOriginalText;
 
         if (!buttonEnabled) {
             this._button.classList.add('popup__button_disabled');
@@ -76,5 +76,9 @@ export default class PopupWithForm extends Popup {
 
     setButtonText(text) {
         this._button.textContent = text;
+    }
+
+    getButtonOriginalText() {
+        return this._buttonOriginalText;
     }
 }

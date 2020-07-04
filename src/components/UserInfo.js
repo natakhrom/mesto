@@ -6,12 +6,10 @@ export default class UserInfo {
     }
 
     getUserInfo() {
-        const userCard = {
+        return {
             'name': this._userName.textContent,
             'about': this._userAbout.textContent
         };
-
-        return userCard;
     }
 
     setUserInfo({ name, about }) {

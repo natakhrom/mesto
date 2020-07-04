@@ -4,7 +4,7 @@ export default class Api {
         this._headers = headers;
     }
 
-    _request(path, payload, callback) {
+    _request(path, payload) {
         return fetch(path, payload) 
             .then(res => {  
                 if (res.ok) {
@@ -12,37 +12,22 @@ export default class Api {
                 }
                 // если ошибка, отклоняем промис
                 return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .then(callback)
-            .catch(err => {
-                console.log(err); // выведем ошибку в консоль
             });
     }
 
-    _requestWithoutCatch(path, payload) {
-        return fetch(path, payload) 
-        .then(res => {  
-            if (res.ok) {
-                return res.json();
-            }
-            // если ошибка, отклоняем промис
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
-    }
-
     getUserInfo() {
-        return this._requestWithoutCatch(`${this._baseUrl}/users/me`, {
+        return this._request(`${this._baseUrl}/users/me`, {
             headers: this._headers
         });
     }
 
     getInitialCards() {
-        return this._requestWithoutCatch(`${this._baseUrl}/cards`, {
+        return this._request(`${this._baseUrl}/cards`, {
             headers: this._headers
         });
     }
 
-    patchEditProfile(name, about, callback) {
+    patchEditProfile(name, about) {
         return this._request(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -50,10 +35,10 @@ export default class Api {
                 name: name,
                 about: about
             })
-        }, callback);
+        });
     }
 
-    postAddNewCard(name, link, callback) {
+    postAddNewCard(name, link) {
         return this._request(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
@@ -61,37 +46,37 @@ export default class Api {
                 name: name,
                 link: link
             })
-        }, callback);
+        });
     }
 
-    patchNewAvatar(link, callback) {
+    patchNewAvatar(link) {
         return this._request(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify ({
                 avatar: link
             })
-        }, callback);
+        });
     }
 
-    deleteCard(cardId, callback) {
+    deleteCard(cardId) {
         return this._request(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers
-        }, callback);
+        });
     }
 
-    putLike(cardId, callback) {
+    putLike(cardId) {
         return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
             method: 'PUT',
             headers: this._headers
-        }, callback);
+        });
     }
 
-    deleteLike(cardId, callback) {
+    deleteLike(cardId) {
         return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
             method: 'DELETE',
             headers: this._headers
-        }, callback);
+        });
     }
 }
